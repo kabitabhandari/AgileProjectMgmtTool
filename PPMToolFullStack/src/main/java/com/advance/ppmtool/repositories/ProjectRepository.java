@@ -7,5 +7,9 @@ import javax.annotation.Resource;
 
 @Resource
 public interface ProjectRepository extends CrudRepository<Project, Long> {
+    Project findByProjectIdentifier(String identifier);
+
+    @Override
+    Iterable<Project> findAll();
 
 }
