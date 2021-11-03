@@ -68,3 +68,31 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+Development notes:
+Npm install react-router-dom@4.3.1 (stable)
+npm install bootstrap@4.1.3 (stable)
+
+Functional component shortcut: rfc
+export default function CreateProjectButton() {
+return (
+
+<div>
+
+        </div>
+    )
+
+}
+
+Class based component shortcut: rcc
+export default class CreateProjectButton extends Component {
+render() {
+return (
+
+<div>
+
+            </div>
+        )
+    }
+
+}
