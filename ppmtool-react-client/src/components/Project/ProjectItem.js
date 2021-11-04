@@ -10,8 +10,8 @@ class ProjectItem extends Component {
               <span className="mx-auto">REACT</span>
             </div>
             <div className="col-lg-6 col-md-4 col-8">
-              <h3>Spring / React Project</h3>
-              <p>Project to create a Kanban Board with Spring Boot and React</p>
+              <h3>Database Mgmt Project for Master</h3>
+              <p>Do an initial database config and update your jira board!</p>
             </div>
             <div className="col-md-4 d-none d-lg-block">
               <ul className="list-group">
