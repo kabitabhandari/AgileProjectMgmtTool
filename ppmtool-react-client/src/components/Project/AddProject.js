@@ -13,10 +13,18 @@ class AddProject extends Component {
       projectDescription: "",
       start_date: "",
       end_date: "",
+      errors: {},
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  //life cycle hooks
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
   }
 
   onChange(event) {
@@ -25,7 +33,6 @@ class AddProject extends Component {
   }
 
   onSubmit(event) {
-    alert("A Record was submitted");
     //by default when we click Submit button it will refresh the page and we wont get project object. so we dont want this behaviour so prevent the default behaviour.
     event.preventDefault();
     //create new object onSubmit
@@ -40,19 +47,18 @@ class AddProject extends Component {
     this.props.createProject(newProject, this.props.history);
   }
 
+  //check name attribute <input> tag fields ], should match with postman/@Entity fields
+  //create constructor
+  //set initial state in constructor
+  //set value on input fields
+  //create onChange function
+  //set onChange on each input field
+  //bind on constructor
+  //check state change in the react extension
   render() {
+    const { errors } = this.state;
     return (
       <div>
-        {
-          //check name attribute <input> tag fields ], should match with postman/@Entity fields
-          //create constructor
-          //set initial state in constructor
-          //set value on input fields
-          //create onChange function
-          //set onChange on each input field
-          //bind on constructor
-          //check state change in the react extension
-        }
         <div className="register">
           <div className="container">
             <div className="row">
@@ -69,6 +75,7 @@ class AddProject extends Component {
                       value={this.state.projectName}
                       onChange={this.onChange}
                     />
+                    <p>{errors.projectName}</p>
                   </div>
                   <div className="form-group">
                     <input
@@ -79,6 +86,7 @@ class AddProject extends Component {
                       value={this.state.projectIdentifier}
                       onChange={this.onChange}
                     />
+                    <p>{errors.projectIdentifier}</p>
                   </div>
                   <div className="form-group">
                     <textarea
@@ -87,7 +95,8 @@ class AddProject extends Component {
                       name="projectDescription"
                       value={this.state.projectDescription}
                       onChange={this.onChange}
-                    ></textarea>
+                    />
+                    <p>{errors.projectDescription}</p>
                   </div>
                   <h6>Start Date</h6>
                   <div className="form-group">
@@ -126,6 +135,11 @@ class AddProject extends Component {
 
 AddProject.propTypes = {
   createProject: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired,
 };
 
-export default connect(null, { createProject })(AddProject);
+const mapStateToProps = (state) => ({
+  errors: state.errors,
+});
+
+export default connect(mapStateToProps, { createProject })(AddProject);
