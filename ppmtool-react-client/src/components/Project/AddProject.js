@@ -27,7 +27,6 @@ class AddProject extends Component {
       this.setState({ errors: nextProps.errors });
     }
   }
-
   onChange(event) {
     // for each of name take each of its value and set as new state.
     this.setState({ [event.target.name]: event.target.value });
