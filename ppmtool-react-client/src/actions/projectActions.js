@@ -1,5 +1,9 @@
 import axios from "axios";
-import { GET_ERRORS_TYPE, GET_PROJECTS_TYPE } from "./types";
+import {
+  GET_ERRORS_TYPE,
+  GET_PROJECTS_TYPE,
+  UPDATE_PROJECT_TYPE,
+} from "./types";
 
 export const createProjectAction = (project, history) => async (dispatch) => {
   try {
@@ -26,3 +30,14 @@ export const getProjectsAction = () => async (dispatch) => {
     payload: backendResponse.data,
   });
 };
+
+export const updateProjectAction =
+  (projectIdentifier, history) => async (dispatch) => {
+    const backendResponse = await axios.get(
+      `http://localhost:8080/api/project/${projectIdentifier}`
+    );
+    dispatch({
+      type: UPDATE_PROJECT_TYPE,
+      payload: backendResponse.data,
+    });
+  };

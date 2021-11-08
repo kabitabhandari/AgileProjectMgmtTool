@@ -1,15 +1,14 @@
-import { GET_PROJECTS_TYPE } from "../actions/types";
+import { UPDATE_PROJECT_TYPE } from "../actions/types";
 const initialState = {
-  projects: [],
-  //project: {},
+  project: {},
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case GET_PROJECTS_TYPE:
+    case UPDATE_PROJECT_TYPE:
       return {
         ...state,
-        projects: action.payload,
+        project: action.payload,
       };
     default:
       return state;
