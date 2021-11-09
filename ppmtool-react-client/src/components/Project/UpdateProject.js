@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { updateProjectAction } from "../../actions/projectActions";
+import { updateProjectAction} from "../../actions/projectActions";
+import { createProjectAction } from "../../actions/projectActions";
+import classnames from "classnames";
+
 
 class UpdateProject extends Component {
   constructor() {
@@ -14,6 +17,7 @@ class UpdateProject extends Component {
       projectDescription: "",
       start_date: "",
       end_date: "",
+      totalErrors: {},
     };
 
     this.onChange = this.onChange.bind(this);
@@ -22,6 +26,9 @@ class UpdateProject extends Component {
 
   //life cycle hooks
   componentWillReceiveProps(newProps) {
+    if (newProps.totalErrors) {
+      this.setState({ totalErrors: newProps.totalErrors });
+    }
     const {
       id,
       projectName,
@@ -53,18 +60,20 @@ class UpdateProject extends Component {
     //by default when we click Submit button it will refresh the page and we wont get project object. so we dont want this behaviour so prevent the default behaviour.
     event.preventDefault();
     //create new object onSubmit
-    const updateProject = {
+    const updatedProjectInfo = {
+      id: this.state.id,
       projectName: this.state.projectName,
       projectIdentifier: this.state.projectIdentifier,
       projectDescription: this.state.projectDescription,
       start_date: this.state.start_date,
       end_date: this.state.end_date,
     };
-    console.log(updateProject);
-    this.props.updateProjectAction(updateProject, this.props.history);
+    console.log(updatedProjectInfo);
+    this.props.createProjectAction(updatedProjectInfo, this.props.history);
   }
 
   render() {
+    const totalErrors = this.state.totalErrors;
     return (
       <div className="project">
         <div className="container">
@@ -76,7 +85,9 @@ class UpdateProject extends Component {
                 <div className="form-group">
                   <input
                     type="text"
-                    className="form-control form-control-lg "
+                    className={classnames("form-control form-control-lg", {
+                      "is-invalid": totalErrors.projectName
+                    })}
                     placeholder="Project Name"
                     name="projectName"
                     value={this.state.projectName}
@@ -96,7 +107,9 @@ class UpdateProject extends Component {
                 </div>
                 <div className="form-group">
                   <textarea
-                    className="form-control form-control-lg"
+                      className={classnames("form-control form-control-lg", {
+                        "is-invalid": totalErrors.projectDescription
+                      })}
                     name="projectDescription"
                     value={this.state.projectDescription}
                     onChange={this.onChange}
@@ -135,11 +148,14 @@ class UpdateProject extends Component {
 }
 
 UpdateProject.propTypes = {
+  createProjectAction: PropTypes.func.isRequired,
   update: PropTypes.object.isRequired,
   updateProjectAction: PropTypes.func.isRequired,
+  totalErrors: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   update: state.updateFromcombineReducers.project,
+  totalErrors: state.errorsFromcombineReducers,
 });
-export default connect(mapStateToProps, { updateProjectAction })(UpdateProject);
+export default connect(mapStateToProps, { updateProjectAction,  createProjectAction })(UpdateProject);
