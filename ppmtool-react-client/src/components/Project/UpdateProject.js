@@ -93,6 +93,9 @@ class UpdateProject extends Component {
                     value={this.state.projectName}
                     onChange={this.onChange}
                   />
+                  {totalErrors.projectName && (
+                      <div className="invalid-feedback">{totalErrors.projectName}</div>
+                  )}
                 </div>
                 <div className="form-group">
                   <input
@@ -114,6 +117,9 @@ class UpdateProject extends Component {
                     value={this.state.projectDescription}
                     onChange={this.onChange}
                   />
+                  {totalErrors.projectDescription && (
+                      <div className="invalid-feedback">{totalErrors.projectDescription}</div>
+                  )}
                 </div>
                 <h6>Start Date</h6>
                 <div className="form-group">

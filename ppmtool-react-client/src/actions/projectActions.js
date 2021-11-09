@@ -12,6 +12,10 @@ export const createProjectAction = (project, history) => async (dispatch) => {
       project
     );
     history.push("/dashboard");
+    dispatch({
+      type: GET_ERRORS_TYPE,
+      payload: {},
+    });
   } catch (error) {
     // if error dispatch the Type.js
     dispatch({
