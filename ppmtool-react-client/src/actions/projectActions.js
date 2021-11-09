@@ -33,11 +33,16 @@ export const getProjectsAction = () => async (dispatch) => {
 
 export const updateProjectAction =
   (projectIdentifier, history) => async (dispatch) => {
+  try {
     const backendResponse = await axios.get(
-      `http://localhost:8080/api/project/${projectIdentifier}`
+        `http://localhost:8080/api/project/${projectIdentifier}`
     );
     dispatch({
       type: UPDATE_PROJECT_TYPE,
       payload: backendResponse.data,
     });
+  }catch(error){
+    history.push("/dashboard");
+
+  }
   };
