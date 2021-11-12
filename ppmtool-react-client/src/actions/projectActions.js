@@ -3,14 +3,12 @@ import {
   GET_ERRORS_TYPE,
   GET_PROJECTS_TYPE,
   UPDATE_PROJECT_TYPE,
+  DELETE_PROJECT_TYPE
 } from "./types";
 
 export const createProjectAction = (project, history) => async (dispatch) => {
   try {
-    const backendResponse = await axios.post(
-      "http://localhost:8080/api/project",
-      project
-    );
+      await axios.post("http://localhost:8080/api/project", project);
     history.push("/dashboard");
     dispatch({
       type: GET_ERRORS_TYPE,
@@ -31,6 +29,7 @@ export const getProjectsAction = () => async (dispatch) => {
   );
   dispatch({
     type: GET_PROJECTS_TYPE,
+    // will give what response is given from backend when we call api
     payload: backendResponse.data,
   });
 };
@@ -49,4 +48,14 @@ export const updateProjectAction =
     history.push("/dashboard");
 
   }
+  };
+
+export const deleteProjectAction =
+  (projectIdentifier) => async (dispatch) => {await axios.delete(
+        `http://localhost:8080/api/project/${projectIdentifier}`
+    );
+    dispatch({
+      type: DELETE_PROJECT_TYPE,
+      payload: projectIdentifier,
+    });
   };
