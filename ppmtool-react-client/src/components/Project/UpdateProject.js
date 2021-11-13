@@ -161,7 +161,7 @@ UpdateProject.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  update: state.updateFromcombineReducers.project,
+  update: state.projectFromcombineReducers.project,
   totalErrors: state.errorsFromcombineReducers,
 });
 export default connect(mapStateToProps, { updateProjectAction,  createProjectAction })(UpdateProject);

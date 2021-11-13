@@ -1,4 +1,4 @@
-import {DELETE_PROJECT_TYPE, GET_PROJECTS_TYPE} from "../actions/types";
+import {DELETE_PROJECT_TYPE, GET_PROJECTS_TYPE, UPDATE_PROJECT_TYPE} from "../actions/types";
 const initialState = {
   projects: [],
 };
@@ -11,6 +11,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         projects: action.payload,
+      };
+
+    case UPDATE_PROJECT_TYPE:
+      return {
+        ...state,
+        project: action.payload,
       };
 
     case DELETE_PROJECT_TYPE:
