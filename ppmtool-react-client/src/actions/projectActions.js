@@ -8,7 +8,7 @@ import {
 
 export const createProjectAction = (project, history) => async (dispatch) => {
   try {
-      await axios.post("http://localhost:8080/api/project", project);
+      await axios.post("/api/project", project);
     history.push("/dashboard");
     dispatch({
       type: GET_ERRORS_TYPE,
@@ -25,7 +25,7 @@ export const createProjectAction = (project, history) => async (dispatch) => {
 
 export const getProjectsAction = () => async (dispatch) => {
   const backendResponse = await axios.get(
-    "http://localhost:8080/api/project/all"
+    "/api/project/all"
   );
   dispatch({
     type: GET_PROJECTS_TYPE,
@@ -38,7 +38,7 @@ export const updateProjectAction =
   (projectIdentifier, history) => async (dispatch) => {
   try {
     const backendResponse = await axios.get(
-        `http://localhost:8080/api/project/${projectIdentifier}`
+        `/api/project/${projectIdentifier}`
     );
     dispatch({
       type: UPDATE_PROJECT_TYPE,
@@ -50,12 +50,19 @@ export const updateProjectAction =
   }
   };
 
-export const deleteProjectAction =
-  (projectIdentifier) => async (dispatch) => {await axios.delete(
-        `http://localhost:8080/api/project/${projectIdentifier}`
+export const deleteProjectAction = (projectIdentifier) => async (dispatch) => {
+  if (
+      window.confirm(
+          "Are you sure? This will delete the project and all the data related to it"
+      )
+  ) {
+
+    await axios.delete(
+        `/api/project/${projectIdentifier}`
     );
     dispatch({
       type: DELETE_PROJECT_TYPE,
       payload: projectIdentifier,
     });
+  }
   };
