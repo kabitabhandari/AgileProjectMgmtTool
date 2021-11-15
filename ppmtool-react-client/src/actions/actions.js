@@ -1,47 +1,51 @@
 import axios from "axios";
 import {
-  GET_ERRORS_TYPE,
-  GET_PROJECTS_TYPE,
-  UPDATE_PROJECT_TYPE,
-  DELETE_PROJECT_TYPE
+  GET_ERRORS,
+  GET_PROJECTS,
+  UPDATE_PROJECT,
+  DELETE_PROJECT
 } from "./types";
 
-export const createProjectAction = (project, history) => async (dispatch) => {
+export const action_post = (project, history) => async (dispatch) => {
   try {
       await axios.post("/api/project", project);
     history.push("/dashboard");
     dispatch({
-      type: GET_ERRORS_TYPE,
+      type: GET_ERRORS,
       payload: {},
     });
   } catch (error) {
-    // if error dispatch the Type.js
+    // if error dispatch the action and backend response
     dispatch({
-      type: GET_ERRORS_TYPE,
+      type: GET_ERRORS,
       payload: error.response.data,
     });
   }
 };
 
-export const getProjectsAction = () => async (dispatch) => {
+
+
+export const action_get = () => async (dispatch) => {
   const backendResponse = await axios.get(
     "/api/project/all"
   );
   dispatch({
-    type: GET_PROJECTS_TYPE,
+    type: GET_PROJECTS,
     // will give what response is given from backend when we call api
     payload: backendResponse.data,
   });
 };
 
-export const updateProjectAction =
+
+
+export const action_update =
   (projectIdentifier, history) => async (dispatch) => {
   try {
     const backendResponse = await axios.get(
         `/api/project/${projectIdentifier}`
     );
     dispatch({
-      type: UPDATE_PROJECT_TYPE,
+      type: UPDATE_PROJECT,
       payload: backendResponse.data,
     });
   }catch(error){
@@ -50,7 +54,9 @@ export const updateProjectAction =
   }
   };
 
-export const deleteProjectAction = (projectIdentifier) => async (dispatch) => {
+
+
+export const action_delete = (projectIdentifier) => async (dispatch) => {
   if (
       window.confirm(
           "Are you sure? This will delete the project and all the data related to it"
@@ -61,7 +67,7 @@ export const deleteProjectAction = (projectIdentifier) => async (dispatch) => {
         `/api/project/${projectIdentifier}`
     );
     dispatch({
-      type: DELETE_PROJECT_TYPE,
+      type: DELETE_PROJECT,
       payload: projectIdentifier,
     });
   }

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { updateProjectAction} from "../../actions/projectActions";
-import { createProjectAction } from "../../actions/projectActions";
+import { action_update} from "../../actions/actions";
+import { action_post } from "../../actions/actions";
 import classnames from "classnames";
 
 
@@ -17,7 +17,7 @@ class UpdateProject extends Component {
       projectDescription: "",
       start_date: "",
       end_date: "",
-      totalErrors: {},
+      mapped_errors: {},
     };
 
     this.onChange = this.onChange.bind(this);
@@ -26,8 +26,8 @@ class UpdateProject extends Component {
 
   //life cycle hooks
   componentWillReceiveProps(newProps) {
-    if (newProps.totalErrors) {
-      this.setState({ totalErrors: newProps.totalErrors });
+    if (newProps.mapped_errors) {
+      this.setState({ mapped_errors: newProps.mapped_errors });
     }
     const {
       id,
@@ -73,7 +73,7 @@ class UpdateProject extends Component {
   }
 
   render() {
-    const totalErrors = this.state.totalErrors;
+    const errors = this.state.mapped_errors;
     return (
       <div className="project">
         <div className="container">
@@ -86,15 +86,15 @@ class UpdateProject extends Component {
                   <input
                     type="text"
                     className={classnames("form-control form-control-lg", {
-                      "is-invalid": totalErrors.projectName
+                      "is-invalid": errors.projectName
                     })}
                     placeholder="Project Name"
                     name="projectName"
                     value={this.state.projectName}
                     onChange={this.onChange}
                   />
-                  {totalErrors.projectName && (
-                      <div className="invalid-feedback">{totalErrors.projectName}</div>
+                  {errors.projectName && (
+                      <div className="invalid-feedback">{errors.projectName}</div>
                   )}
                 </div>
                 <div className="form-group">
@@ -111,14 +111,14 @@ class UpdateProject extends Component {
                 <div className="form-group">
                   <textarea
                       className={classnames("form-control form-control-lg", {
-                        "is-invalid": totalErrors.projectDescription
+                        "is-invalid": errors.projectDescription
                       })}
                     name="projectDescription"
                     value={this.state.projectDescription}
                     onChange={this.onChange}
                   />
-                  {totalErrors.projectDescription && (
-                      <div className="invalid-feedback">{totalErrors.projectDescription}</div>
+                  {errors.projectDescription && (
+                      <div className="invalid-feedback">{errors.projectDescription}</div>
                   )}
                 </div>
                 <h6>Start Date</h6>
@@ -157,11 +157,11 @@ UpdateProject.propTypes = {
   createProjectAction: PropTypes.func.isRequired,
   update: PropTypes.object.isRequired,
   updateProjectAction: PropTypes.func.isRequired,
-  totalErrors: PropTypes.object.isRequired,
+  mapped_errors: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  update: state.projectFromcombineReducers.project,
-  totalErrors: state.errorsFromcombineReducers,
+  update: state.projects_in_state.project,
+  mapped_errors: state.errors_in_state,
 });
-export default connect(mapStateToProps, { updateProjectAction,  createProjectAction })(UpdateProject);
+export default connect(mapStateToProps, { updateProjectAction: action_update,  createProjectAction: action_post })(UpdateProject);

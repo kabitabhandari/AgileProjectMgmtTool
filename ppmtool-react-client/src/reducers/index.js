@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
 import errorReducer from "./errorReducer";
 import projectReducer from "./projectReducer";
-// we are exporting combineReducers, which is going to take parameter as an object that contain all reducers that we are going to create moving forward.
+//  all the reducers that we create are taken as parameter by combine reducers().
 export default combineReducers({
-  errorsFromcombineReducers: errorReducer,
-  projectFromcombineReducers: projectReducer,
+  errors_in_state: errorReducer,
+  projects_in_state: projectReducer,
 });

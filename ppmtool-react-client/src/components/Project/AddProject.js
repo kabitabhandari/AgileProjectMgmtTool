@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { createProjectAction } from "../../actions/projectActions";
+import { action_post } from "../../actions/actions";
 import classnames from "classnames";
 
 class AddProject extends Component {
@@ -14,7 +14,7 @@ class AddProject extends Component {
       projectDescription: "",
       start_date: "",
       end_date: "",
-      totalErrors: {},
+      mapped_errors: {},
     };
 
     this.onChange = this.onChange.bind(this);
@@ -23,8 +23,8 @@ class AddProject extends Component {
 
   //life cycle hooks
   componentWillReceiveProps(newProps) {
-    if (newProps.totalErrors) {
-      this.setState({ totalErrors: newProps.totalErrors });
+    if (newProps. mapped_errors) {
+      this.setState({  mapped_errors: newProps. mapped_errors });
     }
   }
   onChange(event) {
@@ -57,7 +57,7 @@ class AddProject extends Component {
   //check state change in the react extension
   render() {
     //const { totalErrors } = this.state;
-    const totalErrors = this.state.totalErrors;
+    const totalErrors = this.state. mapped_errors;
     return (
       <div>
         <div className="register">
@@ -156,11 +156,11 @@ class AddProject extends Component {
 
 AddProject.propTypes = {
   createProjectAction: PropTypes.func.isRequired,
-  totalErrors: PropTypes.object.isRequired,
+  mapped_errors: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  totalErrors: state.errorsFromcombineReducers,
+  mapped_errors: state.errors_in_state,
 });
 
-export default connect(mapStateToProps, { createProjectAction })(AddProject);
+export default connect(mapStateToProps, { createProjectAction: action_post })(AddProject);

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ProjectItem from "./Project/ProjectItem";
 import CreateProjectButton from "./Project/CreateProjectButton";
 import { connect } from "react-redux";
-import { getProjectsAction } from "../actions/projectActions";
+import { action_get } from "../actions/actions";
 import PropTypes from "prop-types";
 
 class Dashboard extends Component {
@@ -42,6 +42,6 @@ Dashboard.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  project: state.projectFromcombineReducers,
+  project: state.projects_in_state,
 });
-export default connect(mapStateToProps, { getProjectsAction })(Dashboard);
+export default connect(mapStateToProps, { getProjectsAction: action_get })(Dashboard);

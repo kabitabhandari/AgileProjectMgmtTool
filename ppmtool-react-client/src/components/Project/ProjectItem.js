@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { deleteProjectAction } from "../../actions/projectActions";
+import { action_delete } from "../../actions/actions";
 
 
 class ProjectItem extends Component {
@@ -53,4 +53,4 @@ class ProjectItem extends Component {
 ProjectItem.propTypes = {
   deleteProjectAction: PropTypes.func.isRequired,
 };
-export default connect(null, {deleteProjectAction})(ProjectItem);
+export default connect(null, {deleteProjectAction: action_delete})(ProjectItem);
